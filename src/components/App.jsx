@@ -1,23 +1,49 @@
+import React from 'react';
 import { Component } from 'react';
-import Feedback from './Feedback/Feedback';
+import { Box } from './Box';
+import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
+import { Statistics } from './Statistics/Statistics';
 
 export class App extends Component {
-  state = {};
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+
+  handleChosenFeedback = ({ option }) => {
+    this.setState(state => ({
+      [option]: state[option] + 1,
+    }));
+  };
+
+  countTotalFeedback = () =>
+    Object.values(this.state).reduce((acc, item) => acc + item, 0);
+
+  countPositiveFeedbackPercentage = () =>
+    this.countTotalFeedback() &&
+    Math.round((this.state.good / this.countTotalFeedback()) * 1000) / 10;
+  stateKeys = Object.keys(this.state);
+
   render() {
+    const { good, neutral, bad } = this.state;
+    const totalFeedbacks = this.countTotalFeedback();
+    const positivePercentage = this.countPositiveFeedbackPercentage();
+
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          color: '#010101',
-        }}
-      >
-        <h1>Please leave feedback</h1>
-        <Feedback />
-      </div>
+      <Box display="flex" flexDirection="column" p={5}>
+        <FeedbackOptions
+          options={this.stateKeys}
+          onLeaveFeedback={this.handleChosenFeedback}
+        />
+        <Statistics
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          total={totalFeedbacks}
+          positivePercentage={positivePercentage}
+        />
+      </Box>
     );
   }
 }
