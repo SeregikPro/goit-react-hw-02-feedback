@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Section } from 'components/Section/Section';
+import { Box } from 'components/Box';
 
 export const Statistics = ({
   good,
@@ -9,13 +9,13 @@ export const Statistics = ({
   positivePercentage,
 }) => {
   return (
-    <Section title="Statistics">
+    <Box>
       <p>Good: {good}</p>
       <p>Neutral: {neutral}</p>
       <p>Bad: {bad}</p>
       <p>Total: {total}</p>
       <p>Positive feedback: {positivePercentage}%</p>
-    </Section>
+    </Box>
   );
 };
 

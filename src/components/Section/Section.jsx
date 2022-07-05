@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types';
+import { Box } from 'components/Box';
 
-export const Section = ({ title }) => {
-  return <>{title && <Section>{title}</Section>}</>;
+export const Section = ({ title, children }) => {
+  return (
+    <Box>
+      <h2>{title}</h2>
+      {children}
+    </Box>
+  );
 };
 
 Section.propTypes = {

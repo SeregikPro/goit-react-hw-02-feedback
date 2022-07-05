@@ -2,6 +2,8 @@ import React from 'react';
 import { Component } from 'react';
 import { Box } from './Box';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
+import { Notification } from './Notification/Notification';
+import { Section } from './Section/Section';
 import { Statistics } from './Statistics/Statistics';
 
 export class App extends Component {
@@ -32,17 +34,25 @@ export class App extends Component {
 
     return (
       <Box display="flex" flexDirection="column" p={5}>
-        <FeedbackOptions
-          options={this.stateKeys}
-          onLeaveFeedback={this.handleChosenFeedback}
-        />
-        <Statistics
-          good={good}
-          neutral={neutral}
-          bad={bad}
-          total={totalFeedbacks}
-          positivePercentage={positivePercentage}
-        />
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={this.stateKeys}
+            onLeaveFeedback={this.handleChosenFeedback}>
+          </FeedbackOptions>
+        </Section>
+        <Section title="Statistics">
+          {totalFeedbacks === 0 ? (
+            <Notification message="There is no feedback"></Notification>
+          ) : (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={totalFeedbacks}
+              positivePercentage={positivePercentage}
+            ></Statistics>
+          )}    
+        </Section>
       </Box>
     );
   }
