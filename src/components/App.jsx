@@ -33,26 +33,36 @@ export class App extends Component {
     const positivePercentage = this.countPositiveFeedbackPercentage();
 
     return (
-      <Box display="flex" flexDirection="column" p={5}>
-        <Section title="Please leave feedback">
-          <FeedbackOptions
-            options={this.stateKeys}
-            onLeaveFeedback={this.handleChosenFeedback}>
-          </FeedbackOptions>
-        </Section>
-        <Section title="Statistics">
-          {totalFeedbacks === 0 ? (
-            <Notification message="There is no feedback"></Notification>
-          ) : (
-            <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
-              total={totalFeedbacks}
-              positivePercentage={positivePercentage}
-            ></Statistics>
-          )}    
-        </Section>
+      <Box display="flex" flexDirection="column" alignItems="center" p={5}>
+        <Box
+          textAlign="center"
+          border="normal"
+          borderColor="accent"
+          borderRadius="normal"
+          p={4}
+        >
+          <Section title="Please leave feedback">
+            <FeedbackOptions
+              options={this.stateKeys}
+              onLeaveFeedback={this.handleChosenFeedback}
+            ></FeedbackOptions>
+          </Section>
+        </Box>
+        <Box textAlign="left">
+          <Section title="Statistics">
+            {totalFeedbacks === 0 ? (
+              <Notification message="There is no feedback"></Notification>
+            ) : (
+              <Statistics
+                good={good}
+                neutral={neutral}
+                bad={bad}
+                total={totalFeedbacks}
+                positivePercentage={positivePercentage}
+              ></Statistics>
+            )}
+          </Section>
+        </Box>
       </Box>
     );
   }
